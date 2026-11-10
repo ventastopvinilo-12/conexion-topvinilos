@@ -3,6 +3,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
+
 @app.get("/")
 def inicio():
     if os.environ.get("ML_CLIENT_ID"):
@@ -16,7 +17,8 @@ def inicio():
     <p>{estado}</p>
     <p>Todavía no está conectado a Mercado Libre.</p>
     """
-    @app.get("/callback")
+
+
+@app.get("/callback")
 def callback():
     return "La dirección de respuesta está lista para configurar."
-
