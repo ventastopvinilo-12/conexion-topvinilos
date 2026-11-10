@@ -4,7 +4,8 @@ import secrets
 import time
 from urllib.parse import urlencode
 from flask_limiter import Limiter
-from flask_wtf.csrf import CSRFProtect
+from flask_wtf.csrf import CSRFProtect, generate_csrf
+
 
 from flask_limiter.util import get_remote_address
 
@@ -41,10 +42,11 @@ conexion = {"access_token": None}
 @app.get("/")
 def inicio():
     if not session.get("autenticado"):
-        return """
+        return f"""
         <h1>Conector de Top Vinilos</h1>
         <p>Ingresá la contraseña que configuraste en Render.</p>
         <form method="post" action="/ingresar">
+          <input type="hidden" name="csrf_token" value="{generate_csrf()}">
           <input type="password" name="password" required>
           <button type="submit">Ingresar</button>
         </form>
