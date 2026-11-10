@@ -62,6 +62,7 @@ def inicio():
     <p>{estado}</p>
     <p>Esta prueba no lee ni modifica campañas.</p>
     <form method="post" action="/conectar">
+      <input type="hidden" name="csrf_token" value="{generate_csrf()}">
       <button type="submit">Conectar con Mercado Libre</button>
     </form>
     """
