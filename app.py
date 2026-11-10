@@ -16,3 +16,7 @@ def inicio():
     <p>{estado}</p>
     <p>Todavía no está conectado a Mercado Libre.</p>
     """
+    @app.get("/callback")
+def callback():
+    return "La dirección de respuesta está lista para configurar."
+
