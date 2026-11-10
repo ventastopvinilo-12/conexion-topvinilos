@@ -8,6 +8,9 @@ import requests
 from flask import Flask, redirect, request, session
 
 app = Flask(__name__)
+@app.before_request
+def mantenimiento():
+    return "Conector en mantenimiento. La conexión todavía no está habilitada.", 503
 
 client_secret = os.environ.get("ML_CLIENT_SECRET", "")
 app.secret_key = client_secret or secrets.token_hex(32)
