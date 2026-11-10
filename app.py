@@ -5,12 +5,14 @@ app = Flask(__name__)
 
 @app.get("/")
 def inicio():
-    return """
+    if os.environ.get("ML_CLIENT_ID"):
+        estado = "Client ID configurado correctamente."
+    else:
+        estado = "Falta configurar el Client ID en Render."
+
+    return f"""
     <h1>Conector de Top Vinilos</h1>
     <p>El servidor está funcionando.</p>
+    <p>{estado}</p>
     <p>Todavía no está conectado a Mercado Libre.</p>
     """
-
-if __name__ == "__main__":
-    puerto = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=puerto)
