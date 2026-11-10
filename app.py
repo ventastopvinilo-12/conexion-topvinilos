@@ -13,7 +13,8 @@ def mantenimiento():
     return "Conector en mantenimiento. La conexión todavía no está habilitada.", 503
 
 client_secret = os.environ.get("ML_CLIENT_SECRET", "")
-app.secret_key = client_secret or secrets.token_hex(32)
+app.secret_key = os.environ.get("SESSION_SECRET")
+
 
 app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
