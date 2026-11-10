@@ -2,3 +2,4 @@ Flask>=3.0,<4
 gunicorn
 requests
 Flask-Limiter
+Flask-WTF
