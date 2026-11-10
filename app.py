@@ -3,11 +3,19 @@ import os
 import secrets
 import time
 from urllib.parse import urlencode
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 import requests
 from flask import Flask, redirect, request, session
 
 app = Flask(__name__)
+limiter = Limiter(
+    key_func=get_remote_address,
+    app=app,
+    storage_uri="memory://",
+)
+
 @app.before_request
 def mantenimiento():
     return "Conector en mantenimiento. La conexión todavía no está habilitada.", 503
@@ -54,6 +62,7 @@ def inicio():
 
 
 @app.post("/ingresar")
+@limiter.limit("5 per minute")
 def ingresar():
     password = request.form.get("password", "")
     password_guardada = os.environ.get("PANEL_PASSWORD", "")
