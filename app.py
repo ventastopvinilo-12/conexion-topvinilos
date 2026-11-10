@@ -4,12 +4,16 @@ import secrets
 import time
 from urllib.parse import urlencode
 from flask_limiter import Limiter
+from flask_wtf.csrf import CSRFProtect
+
 from flask_limiter.util import get_remote_address
 
 import requests
 from flask import Flask, redirect, request, session
 
 app = Flask(__name__)
+csrf = CSRFProtect(app)
+
 limiter = Limiter(
     key_func=get_remote_address,
     app=app,
